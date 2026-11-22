@@ -1,0 +1,52 @@
+[project]
+name = "optuna-mcp-py314"
+version = "0.3.0.post1"
+description = "Optuna MCP Server with an audited Python 3.14 dependency set"
+requires-python = ">=3.14,<3.15"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+    "kaleido>=1.5,<2",
+    "mcp>=1.30,<2",
+    "optuna>=5.1,<6",
+    "optuna-dashboard>=0.21,<1",
+    "pandas>=3.1,<4",
+    "plotly>=7.1,<8",
+    "pydantic>=2.12,<3",
+    "scipy>=1.18,<2",
+    "torch>=2.15,<3",
+]
+
+[project.scripts]
+optuna-mcp = "optuna_mcp.server:main"
+
+[dependency-groups]
+dev = ["pytest>=9,<10", "trio>=0.30,<1"]
+
+[build-system]
+requires = ["setuptools==84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["optuna_mcp*"]
+
+[tool.setuptools.package-data]
+optuna_mcp = ["py.typed"]
+
+[tool.uv]
+environments = [
+    "implementation_name == 'cpython' and sys_platform == 'win32' and platform_machine == 'AMD64'",
+    "implementation_name == 'cpython' and sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+required-environments = [
+    "implementation_name == 'cpython' and sys_platform == 'win32' and platform_machine == 'AMD64'",
+    "implementation_name == 'cpython' and sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
