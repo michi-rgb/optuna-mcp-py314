@@ -1,0 +1,9 @@
+[mcp_servers.optuna_py314]
+command = "uvx"
+args = [
+    "--python", "3.14",
+    "--torch-backend", "cpu",
+    "--from", "git+https://github.com/michi-rgb/optuna-mcp-py314.git@73ac5c2e58ce950683ea1db5fe52e7b3831c91b4",
+    "optuna-mcp",
+]
+startup_timeout_sec = 300

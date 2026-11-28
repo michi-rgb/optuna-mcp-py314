@@ -7,8 +7,8 @@ from packaging.markers import Marker
 from packaging.tags import compatible_tags, cpython_tags
 from packaging.utils import parse_wheel_filename
 
-project = Path(sys.argv[1]).resolve()
-with (project / "pylock.toml").open("rb") as file:
+manifests = Path(sys.argv[1]).resolve() / "packaging"
+with (manifests / "pylock.toml").open("rb") as file:
     lock = tomllib.load(file)
 
 targets = {
@@ -51,6 +51,6 @@ for target, (platform, machine, platforms) in targets.items():
             raise ValueError(f"No wheel for {package['name']} on {target}")
         _, url, sha256 = min(candidates)
         requirements.append(f"{package['name']} @ {url}#sha256={sha256}")
-    (project / f"wheels-{target}.txt").write_text(
+    (manifests / f"wheels-{target}.txt").write_text(
         "\n".join(requirements) + "\n", encoding="utf-8", newline="\n"
     )

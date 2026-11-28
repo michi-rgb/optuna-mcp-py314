@@ -19,7 +19,7 @@ TARGETS = {("win32", "amd64"): "windows-x64", ("linux", "x86_64"): "linux-x64"}
 
 
 def wheel_records(target):
-    manifest = PROJECT / f"wheels-{target}.txt"
+    manifest = PROJECT / "packaging" / f"wheels-{target}.txt"
     for line in manifest.read_text(encoding="utf-8").splitlines():
         if not line or line.startswith("#"):
             continue
